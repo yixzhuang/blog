@@ -95,6 +95,7 @@
 - [プライベート エンドポイントをご利用いただく上でのポイント](./articles/network/pe-introduction.md)
 - [プライベート エンドポイントのよくあるお問い合わせ](./articles/network/pe-troubleshooting.md)
 - [168.63.129.16 の DNS 機能について](./articles/network/dns-168-63-129-16.md)
+- [Application Gateway WAF 誤検知の対応](./articles/network/handle-waf-false-positive.md)
 
 ## Containers
 
