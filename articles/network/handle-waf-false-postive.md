@@ -49,8 +49,12 @@ tags:
 AzureDiagnostics 
 | where ResourceProvider == "MICROSOFT.NETWORK" and Category == "ApplicationGatewayFirewallLog"
 ```
+<p>このクエリを実行すると、次のような形式のログが出力されます。誤検知を避けるためには、WAF の設定で特定のログフィールドに注意を払う必要があります。該当するフィールドは下の図の赤い枠で示されています。詳しいについては、「WAF ログのフィールド」セクションをご覧ください。
+  
+<p><img src="./handle-waf-false-positive/examplelog.png" alt="drawing" style="width:900px;"/>
+  
 <p>上記のクエリ以外にも、以下のドキュメントには様々な WAF ログのクエリ例が記載されています。ご参考いただければと存じます。
-
+  
 [Log Analytics を使用して Application Gateway Web アプリケーション ファイアウォール (WAF) のログを調べる](https://learn.microsoft.com/ja-jp/azure/application-gateway/log-analytics)
 
 ## WAF ログのフィールド
