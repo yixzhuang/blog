@@ -67,6 +67,7 @@ AzureDiagnostics
 <p>ruleId は、特定の通信がどのルールに一致しているかを示します。OWASP 3.2 以上の WAF ポリシーを利用する際には、こちらのフィールドの参照して、除外を作成するときに正しいルールを選択する必要があります。
 
 ### フィールド３： details_data
+<p><img src="./handle-waf-false-positive/detailsdata.png" alt="drawing" style="width:600px;"/> 
 <p>ルールにマッチした原因は、WAF ログの details_data で確認できます。通常、以下の形式でマッチした内容を確認できます。
 <p><img src="./handle-waf-false-positive/details.png" alt="drawing" style="width:900px;"/>
 
@@ -84,6 +85,7 @@ AzureDiagnostics
 > [Web Application Firewall の DRS および CRS の規則グループと規則 ｜異常スコアリング](https://learn.microsoft.com/ja-jp/azure/web-application-firewall/ag/application-gateway-crs-rulegroups-rules?tabs=drs21#anomaly-scoring)
 >
 ### フィールド ４：action
+<p><img src="./handle-waf-false-positive/actionlog.png" alt="drawing" style="width:600px;"/> 
 <p> WAF の Action は、検出された通信に対して実施された操作を示します。ログのアクションフィールドには、「Matched」と「Blocked」の二つの値がありますが、表示される値は WAF ポリシーのモードによって異なります。
 
 #### ポリシー モード : 検出 
