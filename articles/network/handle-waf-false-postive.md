@@ -40,7 +40,7 @@ tags:
   
 [OWASP ModSecurity Core Rule Set](https://owasp.org/www-project-modsecurity-core-rule-set/)
 
-[Core Rule Set の GitHub](https://learn.microsoft.com/ja-jp/azure/application-gateway/log-analytics)
+[Core Rule Set の GitHub](https://github.com/coreruleset/coreruleset)
 # ログ
 
 <p>誤検知が発生した場合、その原因を理解することが最初のステップです。具体的には、どのルールによって誤検知が起きているのか、そしてその誤検知の原因が何なのかを WAF のログから把握する必要があります。この情報がなければ、誤検知を避けるための適切な対策を講じることができません。WAF のログは、WAF に関連付けられた Application Gateway のログで以下のクエリを実行することで確認できます。
