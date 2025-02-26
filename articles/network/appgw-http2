@@ -1,3 +1,11 @@
+---
+title: "Application Gateway の HTTP2 サポート"
+date: 2025-02-20 12:00:00
+tags:
+  - Network
+  - Application Gateway
+---
+
 いつもお世話になっております。Azure Networking チームの庄です。
 
 Application GatewayのHTTP/2の動作について、v1とv2のSKUによって動作が異なるため、v1からv2に移行する際に困る方がいらっしゃるかと思います。そこで、以下にその動作の違いについてご説明いたします。
