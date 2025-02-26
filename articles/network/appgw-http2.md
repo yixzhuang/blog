@@ -8,16 +8,17 @@ tags:
 
 いつもお世話になっております。Azure Networking チームの庄です。
 
-Application GatewayのHTTP/2の動作について、v1とv2のSKUによって動作が異なるため、v1からv2に移行する際に困る方がいらっしゃるかと思います。そこで、以下にその動作の違いについてご説明いたします。
+Application Gateway の HTTP/2 の動作について、v1 と v2 の SKU によって動作が異なるため、v1 から v2 に移行する際に困る方がいらっしゃるかと思います。そこで、以下にその動作の違いについてご説明いたします。
 
 # HTTP 2 とは
-HTTP/2（Hypertext Transfer Protocol version 2）は、ウェブ ページのデータをウェブサーバーから取得するための新しい通信方法です。HTTP/1.1 の後継として、2015年に正式な仕様として承認されました。HTTP/2には、「h2」と「h2c」の二つの識別子があり、それぞれの識別子は、HTTP/2 接続を確立する際に利用するプロトコルが異なります。
+HTTP/2（Hypertext Transfer Protocol version 2）は、ウェブ ページのデータをウェブサーバーから取得するための新しい通信方法です。
+HTTP/1.1 の後継として、2015年に正式な仕様として承認されました。HTTP/2には、「h2」と「h2c」の二つの識別子があり、それぞれの識別子は、HTTP/2 接続を確立する際に利用するプロトコルが異なります。
 
-識別子が"h2"となっている場合、それはHTTP/2通信がトランスポート層セキュリティ（TLS）を使用するプロトコルであることを示しています。
+・識別子が"h2"となっている場合、それはHTTP/2通信がトランスポート層セキュリティ（TLS）を使用するプロトコルであることを示しています。
 
-識別子が"h2"となっている場合、それはHTTP/2通信がTLSを使用しないことを示し、HTTP/2 通信は HTTP アップグレードメカニズムのアップグレードヘッダーと HTTP2-Settings ヘッダーフィールドで使用されるトークンとして使用されていました。この使用法は広く普及することはなく、最新のRFC公開情報によって廃止されました。
+・識別子が"h2"となっている場合、それはHTTP/2通信がTLSを使用しないことを示し、HTTP/2 通信は HTTP アップグレードメカニズムのアップグレードヘッダーと HTTP2-Settings ヘッダーフィールドで使用されるトークンとして使用されていました。この使用法は広く普及することはなく、最新のRFC公開情報によって廃止されました。
 
-[HTTP/2](https://datatracker.ietf.org/doc/html/rfc9113#known-http)
+[HTTP/2 の関連記事 (英語)](https://datatracker.ietf.org/doc/html/rfc9113#known-http)
 
 > The "h2c" string was previously used as a token for use in the HTTP Upgrade mechanism's Upgrade header field. This usage was never widely deployed and is deprecated by this document. The same applies to the HTTP2-Settings header field, which was used with the upgrade to "h2c".
 
