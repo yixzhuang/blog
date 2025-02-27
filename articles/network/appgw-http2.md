@@ -31,10 +31,10 @@ www.yahoo.co.jp に HTTP 通信を送信する際には、ブラウザが HTTP/2
 <img src="./appgw_http2/httpyahoo.png" alt="Chrome" style="width:600px;"/> 
 <img src="./appgw_http2/yahoo.png" alt="Chrome" style="width:600px;"/> 
 
-なお、ブラウザからのアクセスではなく、curl コマンドや HTTP クライアントなど別のアプリから HTTP リクエストを送信する際には、HTTP/2 Over TCP を利用して HTTP/2 通信が行われる可能性があります。この状況では、Application Gateway が送信先となる際に、v1 と v2 で動作が異なります。v1 の場合、http/2 通信はダウングレードされて、v2 の場合は 403 エラーが応答されます。詳細につきましては、以下のセッションをご参照ください。
+なお、ブラウザからのアクセスではなく、curl コマンドや HTTP クライアントなど別のアプリから HTTP リクエストを送信する際には、HTTP/2 Over TCP を利用して HTTP/2 通信が行われる可能性があります。この状況では、Application Gateway が送信先となる際に、v1 と v2 で動作が異なります。v1 の場合、HTTP/2 通信はダウングレードされて、v2 の場合は HTTP ステータスコード 403 が応答されます。詳細の動作つきましては、以下のセッションをご参照ください。
 
 # Application Gateway において、HTTP2 のサポートにつきまして
-Application Gateway というリバース プロキシ サービスは、フロントエンド接続（クライアント - Application Gateway）とバックエンド接続（Application Gateway - バックエンドサーバー）の二つの接続が発生します。現在、バックエンド接続におけるHTTP/2 はサポートされておりません。
+Application Gateway というリバース プロキシ サービスは、フロントエンド接続（クライアント - Application Gateway）とバックエンド接続（Application Gateway - バックエンドサーバー）の二つの接続が発生します。現在、バックエンド接続における HTTP/2 はサポートされておりません。
 
 フロントエンド接続における HTTP/2 のサポート状況については、リスナーを利用しているプロトコルによって異なります。詳細は以下のテーブルをご参照いただけますと幸いです。
 
