@@ -25,7 +25,7 @@ HTTP/1.1 の後継として、2015年に正式な仕様として承認されま�
 
 主要なブラウザでは、HTTP/2 Over TLS のみが HTTP/2 として使用できます。例えば、ブラウザから www.yahoo.co.jp に HTTP 通信を送信する際には、HTTP/2 Over TCP (h2c)ではなく、HTTP/1.1 で接続を確立します。一方、HTTPS 通信を行う際には、HTTP/2 Over TLS が使用されます。
 
-<img src="./customruleportal.png" alt="カスタム ルールを利用する" style="width:600px;"/> 
+<img src="./appgw_http2/chrome check.png" alt="カスタム ルールを利用する" style="width:600px;"/> 
 
 # Application Gateway において、HTTP2 のサポートにつきまして
 ご存知かもしれませんが、Application Gateway というリバース プロキシ サービスは、フロントエンド接続（クライアント - Application Gateway）とバックエンド接続（Application Gateway - バックエンドサーバー）の二つの接続が発生します。現在、バックエンド接続におけるHTTP/2 はサポートされておりません。
