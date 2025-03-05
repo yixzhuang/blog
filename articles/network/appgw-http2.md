@@ -15,9 +15,9 @@ Application Gateway V1 のリタイアが 2026 年 4 月 28 日であると発�
 
 # HTTP 2 とは
 HTTP/2（Hypertext Transfer Protocol version 2）は、ウェブ ページのデータをウェブ サーバーから取得するための新しい通信方法です。
-HTTP/1.1 の後継として、2015 年に正式な仕様として承認されました。HTTP/2 には、「h2」と「h2c」の二つの識別子があり、それぞれの識別子は、HTTP/2 接続を確立する際に利用するプロトコルが異なります。
+HTTP/1.1 の後継として、2015 年に正式な仕様として承認されました。HTTP/2 には、「h2」と「h2c」の二つの識別子があります。HTTP/2 の接続が確立される際にトランスポート層セキュリティ（TLS) は利用されたかどうかによって、HTTP/2 通信には「h2」または「h2c」識別子が表示されます。つまり、HTTP/2 の識別子を通じて、HTTP/2 通信が暗号化されているかどうかを判断することができます。
 
-・識別子が"h2"となっている場合、それは HTTP/2 通信がトランスポート層セキュリティ（TLS）を使用するプロトコルであることを示しています。
+・識別子が "h2" となっている場合、それは HTTP/2 通信が TLS を使用するプロトコルであることを示しています。
 
 ・識別子が "h2c" となっている場合、それは HTTP/2 通信が TLS を使用しないことを示しています。HTTP/2 通信は、HTTP アップグレード メカニズムの "Upgrade" ヘッダーと "HTTP2-Settings" ヘッダー フィールドで使用されるトークンとして利用されます。
 
@@ -26,15 +26,15 @@ HTTP/1.1 の後継として、2015 年に正式な仕様として承認されま
 > The "h2c" string was previously used as a token for use in the HTTP Upgrade mechanism's Upgrade header field. This usage was never widely deployed and is deprecated by this document. The same applies to the HTTP2-Settings header field, which was used with the upgrade to "h2c".
 
 
-Chrome や Edge など現在主要なブラウザでは、HTTP/2 Over TLS のみが HTTP/2 として使用できます。
+Chrome や Edge など現在主要なブラウザでは、HTTP/2 Over TLS (h2) のみが HTTP/2 として使用できます。
 <img src="./appgw_http2/chrome check.png" alt="Chrome" style="width:600px;"/> 
 
-www.microsoft.com に HTTP 通信を送信する際には、ブラウザが HTTP/2 Over TCP (h2c) が非サポートのため、Http/2 接続が確立せず、HTTP/1.1 で接続を確立します。
+www.microsoft.com に HTTP 通信を送信する際には、ブラウザが HTTP/2 Over TCP (h2c) が非サポートのため、HTTP/2 接続が確立せず、HTTP/1.1 で接続を確立します。
 
 <img src="./appgw_http2/httpyahoo.png" alt="Chrome" style="width:600px;"/> 
 <img src="./appgw_http2/yahoo.png" alt="Chrome" style="width:600px;"/> 
 
-なお、ブラウザからのアクセスではなく、curl コマンドなどの他の HTTP クライアントから HTTP リクエストを送信する際には、HTTP/2 Over TCP を利用して HTTP/2 通信が行われる可能性があります。この状況では、Application Gateway が接続先となる際に、v1 と v2 で動作が異なります。v1 の場合、HTTP/2 通信はダウングレードされて、v2 の場合は HTTP ステータスコード 403 が応答されます。詳細の動作つきましては、以下のセッションをご参照ください。
+なお、ブラウザからのアクセスではなく、curl コマンドなどの他の HTTP クライアントから HTTP リクエストを送信する際には、HTTP/2 Over TCP (h2c) を利用して HTTP/2 通信が行われる可能性があります。この状況では、Application Gateway が接続先となる際に、v1 と v2 で動作が異なります。v1 の場合、HTTP/2 通信はダウングレードされて、v2 の場合は HTTP ステータスコード 403 が応答されます。詳細の動作つきましては、以下のセッションをご参照ください。
 
 # Application Gateway において、HTTP2 のサポートにつきまして
 Application Gateway はリバース プロキシとして動作するため、フロントエンド接続（クライアント - Application Gateway）とバックエンド接続（Application Gateway - バックエンドサーバー）の二つの接続が発生します。現在、バックエンド接続における HTTP/2 はサポートされておりません。
@@ -46,7 +46,7 @@ Application Gateway はリバース プロキシとして動作するため、�
 | HTTPS | サポート |
 | HTTP  | 非サポート | 
 
-一般的なシナリオとして、HTTP/2 Over TLS が使用されるため、Application Gateway でも HTTP/2 Over TLS のみを考慮しています。そのため、Application Gateway では、HTTPS リスナーに対してのみ HTTP/2 をサポートしています。V1、V2 ともに HTTP リスナーに対しては HTTP/2 の通信をサポートしていませんが、HTTP リスナーに対して実際にクライアントから HTTP/2 通信を送信する際には、SKU によって動作が異なります。以下にそれぞれの SKU の動作について紹介します。
+一般的なシナリオとして、HTTP/2 Over TLS (h2) が使用されるため、Application Gateway でも HTTP/2 Over TLS (h2) のみを考慮しています。そのため、Application Gateway では、HTTPS リスナーに対してのみ HTTP/2 をサポートしています。V1、V2 ともに HTTP リスナーに対しては HTTP/2 の通信をサポートしていませんが、HTTP リスナーに対して実際にクライアントから HTTP/2 通信を送信する際には、SKU によって動作が異なります。以下にそれぞれの SKU の動作について紹介します。
 
 
 ### V1 の動作
@@ -75,7 +75,7 @@ root:/# curl -v http://<v1 Appgw の IP> --http2
 
 ```
 ### V2 の動作
-V2 の場合は、HTTP リスナーに Http/2 を送信すると、Application Gateway が 403 を応答します。
+V2 の場合は、HTTP リスナーに HTTP/2 を送信すると、Application Gateway はクライアントに 403 を応答します。
 
 V2 の HTTP リスナーに HTTP/2 リクエストを Curl コマンドで送信した結果
 ```
