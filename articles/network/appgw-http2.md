@@ -8,17 +8,18 @@ tags:
 
 いつもお世話になっております。Azure Networking チームの庄です。
 Application Gateway V1 のリタイアが 2026 年 4 月 28 日であると発表されてから暫く経ち、V1 をご利用のお客様の中で V2 への移行計画を進められているご状況かと思います。
-・ V1 のリタイアについて詳しくはこちら https://learn.microsoft.com/ja-jp/azure/application-gateway/v1-retirement
+
+※ V1 のリタイアについて詳しくは[こちら](https://datatracker.ietf.org/doc/html/rfc9113#known-http)
 
 今回のブログでは Application Gateway V1 と V2 で HTTP/2 を取り扱う際の動作の違いについてご紹介します。皆様のご参考になりましたら幸いです。
 
 # HTTP 2 とは
 HTTP/2（Hypertext Transfer Protocol version 2）は、ウェブ ページのデータをウェブ サーバーから取得するための新しい通信方法です。
-HTTP/1.1 の後継として、2015年に正式な仕様として承認されました。HTTP/2には、「h2」と「h2c」の二つの識別子があり、それぞれの識別子は、HTTP/2 接続を確立する際に利用するプロトコルが異なります。
+HTTP/1.1 の後継として、2015 年に正式な仕様として承認されました。HTTP/2 には、「h2」と「h2c」の二つの識別子があり、それぞれの識別子は、HTTP/2 接続を確立する際に利用するプロトコルが異なります。
 
 ・識別子が"h2"となっている場合、それは HTTP/2 通信がトランスポート層セキュリティ（TLS）を使用するプロトコルであることを示しています。
 
-・識別子が "h2c" となっている場合、それは HTTP/2 通信が TLS を使用しないことを示しています。HTTP/2 通信は、HTTP アップグレード メカニズムのアップグレード ヘッダーと HTTP2-Settings ヘッダー フィールドで使用されるトークンとして利用されます。
+・識別子が "h2c" となっている場合、それは HTTP/2 通信が TLS を使用しないことを示しています。HTTP/2 通信は、HTTP アップグレード メカニズムの "Upgrade" ヘッダーと "HTTP2-Settings" ヘッダー フィールドで使用されるトークンとして利用されます。
 
 [HTTP/2 の関連記事 (英語)](https://datatracker.ietf.org/doc/html/rfc9113#known-http)
 
@@ -33,7 +34,7 @@ www.microsoft.com に HTTP 通信を送信する際には、ブラウザが HTTP
 <img src="./appgw_http2/httpyahoo.png" alt="Chrome" style="width:600px;"/> 
 <img src="./appgw_http2/yahoo.png" alt="Chrome" style="width:600px;"/> 
 
-なお、ブラウザからのアクセスではなく、curl コマンドや HTTP クライアントなど別のアプリから HTTP リクエストを送信する際には、HTTP/2 Over TCP を利用して HTTP/2 通信が行われる可能性があります。この状況では、Application Gateway が接続先となる際に、v1 と v2 で動作が異なります。v1 の場合、HTTP/2 通信はダウングレードされて、v2 の場合は HTTP ステータスコード 403 が応答されます。詳細の動作つきましては、以下のセッションをご参照ください。
+なお、ブラウザからのアクセスではなく、curl コマンドなどの他の HTTP クライアントから HTTP リクエストを送信する際には、HTTP/2 Over TCP を利用して HTTP/2 通信が行われる可能性があります。この状況では、Application Gateway が接続先となる際に、v1 と v2 で動作が異なります。v1 の場合、HTTP/2 通信はダウングレードされて、v2 の場合は HTTP ステータスコード 403 が応答されます。詳細の動作つきましては、以下のセッションをご参照ください。
 
 # Application Gateway において、HTTP2 のサポートにつきまして
 Application Gateway はリバース プロキシとして動作するため、フロントエンド接続（クライアント - Application Gateway）とバックエンド接続（Application Gateway - バックエンドサーバー）の二つの接続が発生します。現在、バックエンド接続における HTTP/2 はサポートされておりません。
@@ -108,7 +109,7 @@ root: curl --http2 -v -k http://<v2 Appgw の IP>
 
 ```
 
-ログから確認すると、HTTP リスナーに HTTP/2 を送信すると、アクセスログの「httpStatus」に 403 が記載され、「serverStatus」には別のステータスコードが記載される事象が発生しています。こちらは不具合ではなく、想定された動作ですのでご安心ください。
+上記の HTTP リスナーに HTTP/2 を送信した通信結果を、Application Gateway で設定可能な診断ログの 1 つにあるアクセス ログから対象の通信結果を確認すると、「httpStatus」のプロパティには 403 が記載され、「serverStatus」のプロパティには 403 以外の別のステータスコードが記載されます。こちらは想定されているログの記録結果です。
 
 また、このブロックは Application Gateway V2 自体のコード レベルでの動作であり、WAF を利用していない場合でも同様に HTTP 403 を返す動作となります。つまり、Application Gateway v2 は WAF の利用の有無にかかわらず HTTP リスナーで受け取った HTTP/2 通信をブロックすることが想定された動作となります。
   
