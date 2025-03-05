@@ -27,7 +27,7 @@ HTTP/1.1 の後継として、2015 年に正式な仕様として承認されま
 
 
 Chrome や Edge など現在主要なブラウザでは、HTTP/2 Over TLS (h2) のみが HTTP/2 として使用できます。
-<img src="./appgw_http2/chrome check.png" alt="Chrome" style="width:600px;"/> 
+<img src="./appgw_http2/chromecheck.png" alt="Chrome" style="width:600px;"/> 
 
 www.microsoft.com に HTTP 通信を送信する際には、ブラウザが HTTP/2 Over TCP (h2c) が非サポートのため、HTTP/2 接続が確立せず、HTTP/1.1 で接続を確立します。
 
