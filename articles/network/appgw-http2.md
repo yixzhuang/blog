@@ -27,12 +27,12 @@ HTTP/1.1 の後継として、2015 年に正式な仕様として承認されま
 
 
 Chrome や Edge など現在主要なブラウザでは、HTTP/2 Over TLS (h2) のみが HTTP/2 として使用できます。
-<img src="./appgw_http2/chrome check.png" alt="HAR1" style="width:600px;"/> 
+<img src="./appgw_http2/chrome check.png" alt="HAR1" style="width:800px;"/> 
 
 www.microsoft.com に HTTP 通信を送信する際には、ブラウザが HTTP/2 Over TCP (h2c) が非サポートのため、HTTP/2 接続が確立せず、HTTP/1.1 で接続を確立します。
 
-<img src="./appgw_http2/httpyahoo.png" alt="HAR2" style="width:600px;"/> 
-<img src="./appgw_http2/yahoo.png" alt="HAR3" style="width:600px;"/> 
+<img src="./appgw_http2/httpyahoo.png" alt="HAR2" style="width:800px;"/> 
+<img src="./appgw_http2/yahoo.png" alt="HAR3" style="width:800px;"/> 
 
 なお、ブラウザからのアクセスではなく、curl コマンドなどの他の HTTP クライアントから HTTP リクエストを送信する際には、HTTP/2 Over TCP (h2c) を利用して HTTP/2 通信が行われる可能性があります。この状況では、Application Gateway が接続先となる際に、v1 と v2 で動作が異なります。v1 の場合、HTTP/2 通信はダウングレードされて、v2 の場合は HTTP ステータスコード 403 が応答されます。詳細の動作つきましては、以下のセッションをご参照ください。
 
