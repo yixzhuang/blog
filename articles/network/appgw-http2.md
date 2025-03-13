@@ -19,7 +19,7 @@ HTTP/1.1 の後継として、2015 年に正式な仕様として承認されま
 
 ・識別子が "h2" となっている場合、それは HTTP/2 通信が TLS を使用するプロトコルであることを示しています。
 
-・識別子が "h2c" となっている場合、HTTP/2 通信が TLS を使用しません。この際、HTTP/2 通信は "Upgrade" ヘッダーと "HTTP2-Settings" ヘッダーを送信されます。"Upgrade" ヘッダーの値は「h2c」が設定され、"HTTP2-Settings" ヘッダーの値はトークン（例: AAMAAABkAAQCAAAAAAIAAAAA）が設定されます。
+・識別子が "h2c" となっている場合、HTTP/2 通信が TLS を使用しません。この際、クライアントは HTTP/2 通信に "Upgrade" ヘッダーと "HTTP2-Settings" ヘッダーを送信します。"Upgrade" ヘッダーの値は「h2c」が設定され、"HTTP2-Settings" ヘッダーの値はトークン（例: AAMAAABkAAQCAAAAAAIAAAAA）が設定されます。
 
 [HTTP/2 の関連記事 (英語)](https://datatracker.ietf.org/doc/html/rfc9113#section-3.1)
 
