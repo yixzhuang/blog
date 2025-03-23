@@ -1,6 +1,6 @@
 ---
 title: "Application Gateway の HTTP2 サポート"
-date: 2025-02-20 12:00:00
+date: 2025-03-21 12:00:00
 tags:
   - Network
   - Application Gateway
